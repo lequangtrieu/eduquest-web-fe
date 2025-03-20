@@ -1,0 +1,159 @@
+.btn-quiz {
+    background-color: #ff9800;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .btn-quiz:hover {
+    background-color: #e68900;
+  }
+  
+
+/* === General Styling === */
+.learn-course {
+    padding: 50px 0;
+    background-color: #f4f7fc;
+}
+
+.learn-course .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* === Title & Description === */
+.learn-course h2 {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.learn-course p {
+    font-size: 18px;
+    text-align: center;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* === Sidebar (Table of Contents) === */
+.learn-course .sidebar {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-height: 80vh;
+    overflow-y: auto;
+    transition: 0.3s ease-in-out;
+}
+
+.learn-course .sidebar h4 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.learn-course .sidebar .list-unstyled {
+    padding-left: 0;
+}
+
+.learn-course .sidebar .content-item {
+    margin-bottom: 10px;
+    border-radius: 6px;
+    transition: 0.3s ease-in-out;
+}
+
+.learn-course .sidebar .content-item button {
+    width: 100%;
+    text-align: left;
+    padding: 12px 18px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #007bff;
+    background: #f8f9fa;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.learn-course .sidebar .content-item button i {
+    font-size: 18px;
+    color: #007bff;
+}
+
+.learn-course .sidebar .content-item:hover button,
+.learn-course .sidebar .content-item.active button {
+    background: #007bff;
+    color: white;
+    transform: scale(1.03);
+}
+
+.learn-course .sidebar .content-item.active button i {
+    color: white;
+}
+
+/* === Video Section === */
+.learn-course .video-section {
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease-in-out;
+}
+
+.learn-course .video-section h3 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.learn-course .video-section iframe {
+    width: 100%;
+    height: 450px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease-in-out;
+}
+
+.learn-course .video-section p {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* === Responsive Design === */
+@media screen and (max-width: 992px) {
+    .learn-course .row {
+        flex-direction: column;
+    }
+
+    .learn-course .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .learn-course .video-section iframe {
+        height: 320px;
+    }
+}

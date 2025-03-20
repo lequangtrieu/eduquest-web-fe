@@ -1,0 +1,120 @@
+.register-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f4f7fc;
+}
+
+.register-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.register-container h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.d-flex {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Tăng khoảng cách giữa các radio button */
+}
+
+.d-flex .form-check {
+  display: flex;
+  align-items: center;
+}
+
+.d-flex .form-check-input {
+  width: 20px; /* Kích thước của radio button */
+  height: 20px;
+  margin-right: 10px; /* Khoảng cách giữa radio button và text */
+}
+
+.d-flex .form-check-label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #007bff;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.d-flex input[type="radio"]:checked + label {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.d-flex input[type="radio"]:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.register-container .register-btn {
+  background: #ff6b6b;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  width: 100%;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.register-container .register-btn:hover {
+  background: #e65353;
+}
+
+.register-container .login-link {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.register-container .login-link a {
+  color: #00dec4;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-container .login-link a:hover {
+  text-decoration: underline;
+}
+
+.alert-danger {
+  font-size: 14px;
+  color: #e74c3c;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  background: #f8d7da;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .register-container {
+      padding: 30px;
+  }
+
+  .register-container h2 {
+      font-size: 24px;
+  }
+
+  .register-container .form-group input {
+      font-size: 14px;
+  }
+
+  .register-container .register-btn {
+      font-size: 14px;
+  }
+}

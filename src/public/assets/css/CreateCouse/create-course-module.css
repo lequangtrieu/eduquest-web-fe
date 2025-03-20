@@ -1,0 +1,116 @@
+/* Container chính */
+.module-container {
+    margin-bottom: 30px;
+}
+
+/* Banner trắng với viền xanh ngọc */
+.module-banner {
+    background: #ffffff; /* Xanh nhạt dễ chịu */
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-bottom: 8px;
+    border: 1.5px solid #ddd; /* Viền nhẹ */
+    color: #868686; /* Màu chữ dễ đọc */
+    border-color: #1e6d5c;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1px;
+    font-weight: bold;
+    cursor: pointer;
+    height: 50px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover effect nhẹ nhàng */
+.module-banner:hover {
+    background: #E1F0FF; /* Xanh nhạt dễ chịu */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Hiệu ứng hover: đổi màu viền + shadow */
+.module-banner:hover {
+    border-color: #1e6d5c;
+    /* Viền xanh đậm hơn */
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+/* Tiêu đề module nằm bên trái với hiệu ứng mượt */
+.module-container .module-title {
+    flex-grow: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 18px;
+}
+
+/* Nút thu gọn/mở rộng hiện đại */
+.module-container .btn-toggle {
+    background: rgb(228, 228, 228);
+    color: #2d8a7a;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Hiệu ứng hover cho nút */
+.module-container .btn-toggle:hover {
+    background: #f1f1f1;
+    color: #1e6d5c;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Thêm hiệu ứng khi nhấn */
+.module-container .btn-toggle:active {
+    transform: scale(0.95);
+}
+
+.module-container .lesson-list {
+    padding: 5px;
+    border: 1px solid #a9a9a9;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: #d4f8d6;
+}
+
+/* Nút thêm bài học */
+.module-container .btn-secondary {
+    background-color: #67b055;
+    color: white;
+    border: none;
+}
+
+.module-container .btn-secondary:hover {
+    background-color: #266839;
+}
+
+/* Nút thêm module */
+.module-container .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.module-container .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .module-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-toggle {
+        margin-top: 8px;
+    }
+}

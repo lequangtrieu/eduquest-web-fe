@@ -1,0 +1,105 @@
+/* Page Layout */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f4f7fc;  /* Màu nền sáng */
+}
+
+/* Login Form Container */
+.login-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Form Title */
+.login-container h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form Fields */
+.login-container .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 12px 18px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    color: #333;
+    background: #f8f9fa;
+    transition: border-color 0.3s ease;
+}
+
+.login-container input:focus {
+    border-color: #ff6b6b;
+    outline: none;
+}
+
+/* Login Button */
+.login-container .login-btn {
+    background: #ff6b6b;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    width: 100%;
+    border: none;
+    transition: background 0.3s ease;
+}
+
+.login-container .login-btn:hover {
+    background: #e65353;
+}
+
+/* Link to Register */
+.login-container .register-link {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.login-container .register-link a {
+    color: #00dec4;
+    text-decoration: none;
+}
+
+.login-container .register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Remember Me Checkbox */
+.login-container .remember-me {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.login-container .remember-me input {
+    margin-right: 10px;
+}
+
+.login-container .remember-me label {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Footer Styling */
+.login-container .footer {
+    margin-top: 30px;
+    font-size: 12px;
+    color: #777;
+}

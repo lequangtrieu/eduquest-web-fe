@@ -1,0 +1,200 @@
+/* General Styling for Course Questions */
+.course-questions {
+    background-color: #f4f6f9;
+    /* Light background color */
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    /* Softer shadow for modern look */
+}
+
+/* Header Styling */
+.course-questions .d-flex {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.course-questions h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    /* Dark color for title */
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.course-questions button {
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* Question Form Styling */
+.form-label {
+    font-weight: 600;
+    font-size: 16px;
+    color: #495057;
+    /* Slightly dark color for readability */
+    margin-bottom: 10px;
+    display: block;
+}
+
+.form-control {
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    /* Blue border on focus */
+    outline: none;
+}
+
+.invalid-feedback {
+    font-size: 12px;
+    color: #e74c3c;
+    /* Red color for error message */
+    margin-top: 5px;
+}
+
+/* Option Input Styling */
+.option-badge {
+    font-size: 16px;
+    color: #007bff;
+    /* Blue color for option badges */
+    margin-right: 8px;
+    font-weight: 600;
+}
+
+.correct-answer {
+    color: #28a745;
+    /* Green color for correct answers */
+}
+
+.option-badge.correct {
+    color: #28a745;
+}
+
+.option-badge.normal {
+    color: #999;
+}
+
+/* Styling for Questions List */
+.card {
+    background-color: #ffffff;
+    /* White background for question cards */
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-body h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    /* Dark color for question text */
+    margin-bottom: 10px;
+}
+
+.card-body .d-flex {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-body .d-flex span {
+    font-size: 14px;
+}
+
+.card-body button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.card-body button:hover {
+    background-color: #c0392b;
+}
+
+/* Add Question Button Styling */
+button.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+    border-radius: 8px;
+    padding: 10px 25px;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Cancel Button Styling */
+button.btn-outline-secondary {
+    background-color: #f1f1f1;
+    border-color: #ddd;
+    color: #333;
+    border-radius: 8px;
+}
+
+button.btn-outline-secondary:hover {
+    background-color: #e2e6ea;
+    border-color: #ccc;
+}
+
+.course-questions-board {
+    border: 1.5px solid #d2d2d2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.125);
+}
+
+.text-center.py-4 p {
+    color: #888;
+    font-size: 16px;
+}
+
+.text-center.py-4 button {
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    background-color: #007bff;
+    color: white;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .row.mb-4 {
+        flex-direction: column;
+    }
+
+    .col-md-6 {
+        margin-bottom: 20px;
+    }
+
+    .form-control,
+    .form-select {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .card-body {
+        padding: 10px;
+    }
+}

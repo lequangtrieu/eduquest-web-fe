@@ -1,0 +1,211 @@
+/* === General Layout === */
+.course-detail {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+    background-color: #f4f7fc;
+    justify-content: center;
+}
+
+.course-detail .content {
+    width: 65%;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.course-detail .sidebar {
+    width: 30%;
+    margin-left: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* === Course Image === */
+.course-detail .course-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* === Course Title & Meta === */
+.course-detail h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+.course-detail .course-meta p {
+    font-size: 16px;
+    color: #555;
+    margin: 5px 0;
+}
+
+.course-detail .course-meta strong {
+    color: #007bff;
+}
+
+/* === Tags === */
+.course-detail .tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.course-detail .badge {
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    background: #007bff;
+    color: white;
+}
+
+/* === Sidebar Buy Now Section === */
+.course-detail .sidebar {
+    width: 30%;
+    margin-left: 20px;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 2px solid #00b551;
+    height: auto; /* Đảm bảo chiều cao tự động theo nội dung */
+    align-self: flex-start; /* Căn sidebar theo nội dung */
+  }
+
+/* Sidebar Heading */
+.course-detail .sidebar h4 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+/* Course Price */
+.course-detail .price {
+    font-size: 26px;
+    font-weight: bold;
+    color: #28a745;
+    margin-bottom: 15px;
+}
+
+/* Buy Button */
+.course-detail .btn-buy {
+    background-color: #007bff;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.course-detail .btn-buy:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Enroll Button */
+.course-detail .btn-enroll {
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.course-detail .btn-enroll:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Upcoming Sessions */
+.course-detail .sidebar h5 {
+    font-size: 18px;
+    color: #333;
+    margin-top: 20px;
+}
+
+.course-detail .sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.course-detail .sidebar ul li {
+    background: #eef5ff;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 16px;
+    color: #444;
+    font-weight: bold;
+}
+
+
+/* === Instructor Section === */
+.course-detail .instructor-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    background: #f9fafc;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.course-detail .instructor-profile img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.course-detail .instructor-profile .info {
+    flex: 1;
+}
+
+.course-detail .instructor-profile h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+/* === Video Section === */
+.course-detail .course-video {
+    margin-top: 30px;
+}
+
+.course-detail .course-video iframe {
+    width: 100%;
+    height: 320px;
+    border-radius: 8px;
+    border: none;
+}
+
+/* === Responsive Design === */
+@media screen and (max-width: 992px) {
+    .course-detail {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .course-detail .content,
+    .course-detail .sidebar {
+        width: 100%;
+        margin: 0;
+    }
+}

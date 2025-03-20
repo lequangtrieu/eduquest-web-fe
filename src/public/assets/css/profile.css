@@ -1,0 +1,170 @@
+/* main {
+  background: #00453d url('../../../../public/img/clients/BackgroundProfile.png');
+} */
+.btn-create-course {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.btn-create-course:hover {
+  background-color: #218838;
+}
+
+/* Profile Container */
+.profile-container {
+  max-width: 950px;
+  margin: 20px auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  font-family: "Arial", sans-serif;
+}
+
+/* Cover Photo */
+.cover-photo {
+  width: 100%;
+  height: 280px;
+  background: url('../../../../public/img/blog/blog-3.jpg') center/cover no-repeat;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.cover-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Avatar */
+.profile-avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid white;
+  position: absolute;
+  bottom: -65px;
+  transition: 0.3s;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.05);
+}
+
+/* Profile Details */
+.profile-details {
+  padding: 80px 25px 25px;
+  text-align: center;
+}
+
+.profile-name {
+  font-size: 26px;
+  font-weight: bold;
+  color: #222;
+}
+
+.profile-info {
+  font-size: 14px;
+  color: #666;
+}
+
+.profile-info p {
+  margin: 5px 0;
+}
+
+/* Navigation Tabs */
+.profile-tabs {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #ddd;
+  margin-top: 15px;
+  padding-top: 15px;
+  background: #f8f9fa;
+  padding-bottom: 10px;
+}
+
+.profile-tab {
+  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #444;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 4px;
+}
+
+.profile-tab:hover,
+.profile-tab.active {
+  color: white;
+  background: #007bff;
+}
+
+/* Content Section */
+.profile-content {
+  padding: 25px;
+  background: #ffffff;
+  border-top: 1px solid #ddd;
+  text-align: left;
+}
+
+/* Courses List */
+.profile-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.profile-content li {
+  background: #eef5ff;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+/* Button */
+.btn-edit {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.btn-edit:hover {
+  background: #0056b3;
+}
+
+/* Recent Activity Section */
+.recent-activity {
+  background: #f8f9fa;
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 8px;
+}
+
+.recent-activity h3 {
+  font-size: 18px;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.recent-activity p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}

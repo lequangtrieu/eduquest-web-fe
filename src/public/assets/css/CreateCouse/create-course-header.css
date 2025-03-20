@@ -1,0 +1,47 @@
+.course-header {
+    background: linear-gradient(to right,
+            #004c43 20%,
+            rgba(0, 76, 67, 0.9) 35%,
+            rgba(0, 76, 67, 0.6) 50%,
+            rgba(255, 107, 107, 0.3) 80%,
+            rgba(255, 107, 107, 0)),
+            url('../../../../../public/img/blog/blog-3.jpg') no-repeat center center/cover;
+    color: #00ffd0;
+    padding: 40px 40px; 
+    border-radius: 12px 12px 0 0 ; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.course-header h1 {
+    font-size: 35px;
+    font-weight: 750; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+    gap: 5px; 
+}
+
+.course-header h1 svg {
+    width: 36px; 
+    height: 36px;
+    margin-right: 10px;     
+}
+
+.course-header p {
+    font-size: 17px;
+    font-weight: 400;
+    color: #e2e6ea;
+    line-height: 1.6; 
+    max-width: 800px; 
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}

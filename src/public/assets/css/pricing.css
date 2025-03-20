@@ -1,0 +1,32 @@
+.pricing .pricing-item {
+    background: #ffffff;
+    border: 2px solid #00000026;
+    color: #333;
+    border-radius: 10px;
+    text-align: center;
+    padding: 30px;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 500px;
+}
+
+.row.g-3>div {
+    display: flex;
+    width: 33.33%;
+}
+
+.pricing .pricing-item .icon i {
+    font-size: 40px;
+    color: #00dec4;
+}
+
+.pricing .pricing-item:hover {
+    background: #f8f9fa;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}

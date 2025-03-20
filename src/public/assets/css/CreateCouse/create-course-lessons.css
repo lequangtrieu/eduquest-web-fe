@@ -1,0 +1,84 @@
+.lesson-container {
+    background: #ffffff;
+    border: 1px solid #d1d1d1;
+    border-radius: 12px;
+    margin-bottom: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+/* Banner tiêu đề + nút */
+.lesson-header {
+    background: #1f6a61;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 17px;
+    font-weight: normal;
+    height: 50px;
+}
+
+/* Tiêu đề bài học */
+.lesson-title {
+    font-weight: normal;
+    color: #ffffff;
+}
+
+/* Nút Remove và Toggle */
+.lesson-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.lesson-actions button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: normal;
+    transition: all 0.3s ease-in-out;
+}
+
+.lesson-actions .btn-danger {
+    background: #ff4d4d;
+    color: white;
+}
+
+.lesson-actions .btn-danger:hover {
+    background: #e60000;
+}
+
+.lesson-actions .btn-toggle {
+    background: #363636;
+    color: white;
+}
+
+.lesson-actions .btn-toggle:hover {
+    background: #0056b3;
+}
+
+/* Nội dung Lesson */
+.lesson-content {
+    padding: 20px;
+    display: block; /* Mặc định hiển thị */
+    transition: all 0.3s ease-in-out;
+}
+
+.lesson-container.collapsed .lesson-content {
+    display: none; /* Ẩn nội dung khi thu gọn */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .lesson-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .lesson-actions {
+        margin-top: 10px;
+    }
+}
