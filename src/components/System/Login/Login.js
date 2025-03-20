@@ -32,7 +32,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "https://localhost:7091/api/Auth/Login",
+        "https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Auth/Login",
         {
           email,
           password,

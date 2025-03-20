@@ -24,7 +24,7 @@ export default function Courses() {
 
     const fetchCourses = async () => {
         try {
-            const result = await axios.get("https://localhost:7091/api/Courses");
+            const result = await axios.get("https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Courses");
             setCourses(result.data);
         } catch (error) {
             console.error("Error when fetching course data:", error);

@@ -15,7 +15,7 @@ export default function Schedule() {
             const userId = localStorage.getItem('userId')
 
             const response = await axios.get(
-                `https://localhost:7091/api/Schedule/get`,
+                `https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Schedule/get`,
                 {
                     params: {
                         userId: userId,
