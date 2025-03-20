@@ -21,7 +21,7 @@ export default function Subscriptions() {
             };
 
             // Gửi request tới API để tạo payment link
-            const response = await axios.post("https://localhost:7091/api/Payment/payment-link", paymentData);
+            const response = await axios.post("https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Payment/payment-link", paymentData);
 
             console.log(response);
             if (response.data && response.data.paymentLink) {

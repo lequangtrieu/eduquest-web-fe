@@ -16,7 +16,7 @@ export default function LearnCourse() {
     // Fetch dữ liệu khóa học & video
     const fetchCourseData = async () => {
         try {
-            const result = await axios.get(`https://localhost:7091/api/Course/${idCourse}`);
+            const result = await axios.get(`https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Course/${idCourse}`);
             setCourse(result.data);
 
             const mockVideos = [

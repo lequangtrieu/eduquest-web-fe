@@ -56,7 +56,7 @@ const ProfileDetail = () => {
 
         try {
           const response = await fetch(
-            "https://localhost:7091/api/Auth/profile",
+            "https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Auth/profile",
             {
               method: "PUT",
               headers: {
@@ -99,7 +99,7 @@ const ProfileDetail = () => {
     const fetchProfile = async () => {
       try {
         const response = await fetch(
-          `https://localhost:7091/api/Auth/profile/${id}`
+          `https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Auth/profile/${id}`
         );
         const data = await response.json();
         if (!data.certificates || data.certificates.length === 0) {

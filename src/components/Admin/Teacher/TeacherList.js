@@ -12,7 +12,7 @@ export default function TeacherList() {
 
   const fetchTeachers = async () => {
     try {
-      const result = await axios.get("https://localhost:7091/api/teachers/all");
+      const result = await axios.get("https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/teachers/all");
       setTeachers(result.data);
     } catch (error) {
       console.error("Error when fetching teacher data:", error);
@@ -22,7 +22,7 @@ export default function TeacherList() {
 
   const handleToggleBanTeacher = async (teacherId, teacherName, isBanned) => {
     const action = isBanned ? "Unban" : "Ban";
-    const apiUrl = `https://localhost:7091/api/teachers/${
+    const apiUrl = `https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/teachers/${
       isBanned ? "unban" : "ban"
     }/${teacherId}`;
 

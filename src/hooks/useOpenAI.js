@@ -6,7 +6,7 @@ const useOpenAI = () => {
   const deleteUser = async (theQuestion) => {
     try {
       const response = await axios.get(
-        `https://localhost:7091/api/ChatGPTTest/Login`,
+        `https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/ChatGPTTest/Login`,
         {
           question: theQuestion
         }

@@ -12,7 +12,7 @@ export default function StudentList() {
 
   const fetchStudents = async () => {
     try {
-      const result = await axios.get("https://localhost:7091/api/students/all");
+      const result = await axios.get("https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/students/all");
       setStudents(result.data);
     } catch (error) {
       console.error("Error when fetching student data:", error);
@@ -39,7 +39,7 @@ export default function StudentList() {
       if (result.isConfirmed) {
         try {
           await axios.put(
-            `https://localhost:7091/api/students/${action}/${studentId}`
+            `https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/students/${action}/${studentId}`
           );
           Swal.fire(
             isBan ? "Unlocked!" : "Locked!",

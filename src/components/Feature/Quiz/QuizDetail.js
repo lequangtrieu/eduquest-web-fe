@@ -194,7 +194,7 @@ export default function QuizDetail() {
 
     try {
       const response = await axios.get(
-        `https://localhost:7091/api/ChatGPTTest/get-answer`,
+        `https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/ChatGPTTest/get-answer`,
         {
           params: {
             question: question
