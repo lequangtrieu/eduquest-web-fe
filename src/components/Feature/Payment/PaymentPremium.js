@@ -22,7 +22,7 @@ export function PaymentPremium() {
     const handlePaymentSuccess = async (code, id, cancel, status, orderCode) => {
         try {
             const response = await axios.get(
-                "https://localhost:7091/api/Payment/paymentSuccess",
+                "https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Payment/paymentSuccess",
                 {
                     params: {code, id, cancel, status, orderCode},
                 }

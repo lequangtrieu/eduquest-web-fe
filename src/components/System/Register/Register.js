@@ -25,7 +25,7 @@ export default function Register() {
 
         try {
             const response = await axios.post(
-                "https://localhost:7091/api/Auth/Register",
+                "https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Auth/Register",
                 {
                     email,
                     password,

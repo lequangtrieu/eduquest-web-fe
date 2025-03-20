@@ -13,7 +13,7 @@ export default function CourseDetail() {
 
     const fetchCourseDetail = async () => {
         try {
-            const result = await axios.get(`https://localhost:7091/api/Course/${idCourse}`);
+            const result = await axios.get(`https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Course/${idCourse}`);
             setCourse(result.data);
         } catch (error) {
             console.log(error);
@@ -25,7 +25,7 @@ export default function CourseDetail() {
         try {
             const userId = localStorage.getItem("userId");
             if (userId) {
-                const response = await axios.get(`https://localhost:7091/api/Payment/purchaseHistory?userId=${userId}`);
+                const response = await axios.get(`https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Payment/purchaseHistory?userId=${userId}`);
                 setPurchaseOrders(response.data);
             }
         } catch (error) {
@@ -48,7 +48,7 @@ export default function CourseDetail() {
             console.log("xxxxxxxxx");
 
             // Gửi request tới API để tạo payment link
-            const response = await axios.post("https://localhost:7091/api/Payment/payment-link", paymentData);
+            const response = await axios.post("https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Payment/payment-link", paymentData);
 
             console.log(response);
             if (response.data && response.data.paymentLink) {

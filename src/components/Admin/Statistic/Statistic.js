@@ -11,7 +11,7 @@ export default function Statistic() {
     const [totalRevenue, setTotalRevenue] = useState(0);
 
     // useEffect(() => {
-    //     fetch("https://localhost:7091/api/statistic/statistic")
+    //     fetch("https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/statistic/statistic")
     //         .then(response => response.json())
     //         .then(data => {
 
