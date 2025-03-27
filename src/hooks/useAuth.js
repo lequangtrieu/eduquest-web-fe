@@ -17,7 +17,7 @@ const useAuth = () => {
   const handleLogin = async (email, password) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/auth/login",
+        "https://eduquest-web-fe.vercel.app/auth/login",
         {
           email,
           password,

@@ -16,8 +16,8 @@ export default function Subscriptions() {
                 "description": "Premium Plan",
                 "totalPrice": 15000,
                 "paymentMethod": "Online",
-                "returnUrl": "http://localhost:3000/PaymentPremium/",
-                "cancelUrl": "http://localhost:3000/"
+                "returnUrl": "https://eduquest-web-fe.vercel.app/PaymentPremium/",
+                "cancelUrl": "https://eduquest-web-fe.vercel.app/"
             };
 
             // Gửi request tới API để tạo payment link
