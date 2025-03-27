@@ -41,8 +41,8 @@ export default function CourseDetail() {
                 "description": course.courseTitle.substring(0, 25),
                 "totalPrice": course.price,
                 "paymentMethod": "Online",
-                "returnUrl": "http://localhost:3000/PaymentSuccess/",
-                "cancelUrl": "http://localhost:3000/"
+                "returnUrl": "https://eduquest-web-fe.vercel.app/PaymentSuccess/",
+                "cancelUrl": "https://eduquest-web-fe.vercel.app/"
             };
 
             console.log("xxxxxxxxx");
