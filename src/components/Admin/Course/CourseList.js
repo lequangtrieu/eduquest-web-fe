@@ -21,6 +21,7 @@ export default function CourseList() {
 
   const fetchCourses = async () => {
     try {
+      // const result = await axios.get("http://localhost:5065/api/Courses/");
       const result = await axios.get("https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Courses/");
       setCourses(result.data);
     } catch (error) {
@@ -52,6 +53,7 @@ export default function CourseList() {
       if (result.isConfirmed) {
         try {
           await axios.put(
+            // `http://localhost:5065/api/Course/${action}/${courseId}`
             `https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Course/${action}/${courseId}`
           );
           Swal.fire(

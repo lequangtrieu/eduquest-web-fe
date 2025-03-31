@@ -1,23 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
 import CourseHeader from '../CreateCourse/CourseHeader';
-import CourseForm from '../CreateCourse/CourseForm';
+import CourseForm, { useCourseForm } from '../CreateCourse/CourseForm';
 import PageLayout from "../../../Common/Page/PageLayout";
 import "../../../../public/assets/css/CreateCouse/create-course.css";
 import Swal from 'sweetalert2';  // Import SweetAlert2
 
 const CourseCreate = () => {
+  const courseFormState = useCourseForm();
+  const [userId, setUserId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [lessons, setLessons] = useState([]);
 
   const [lessonTitle, setLessonTitle] = useState('');
   const [lessonType, setLessonType] = useState('video'); // video or quiz
   const [videoUrl, setVideoUrl] = useState('');
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const [quizQuestions, setQuizQuestions] = useState([]);
 
   // State cho câu hỏi quiz
   const [questionText, setQuestionText] = useState('');
   const [answers, setAnswers] = useState([{ text: '', isCorrect: false }]);
+
+  const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        setUserId(decodedToken.nameid || decodedToken.sub);
+      } catch (error) {
+        console.error("Invalid token:", error);
+      }
+    }
+  }, []);
+
+  const clearFile = () => {
+    setSelectedVideo(null);
+    if(fileInputRef.current){
+      fileInputRef.current.value = "";
+    }
+  };
 
   // Handle thêm câu hỏi vào quiz
   const handleAddAnswer = () => {
@@ -53,41 +78,88 @@ const CourseCreate = () => {
       alert('Question text is required');
       return;
     }
+    if (!answers.some(i => i.isCorrect)) {
+      alert('There must be a correct answer.');
+      return;
+    }
     const newQuestion = {
       text: questionText,
       answers: answers
     };
     setQuizQuestions([...quizQuestions, newQuestion]);
+    console.log(lessons);
     setQuestionText('');
     setAnswers([{ text: '', isCorrect: false }]);
   };
 
   // Handle thêm bài học
   const handleAddLesson = () => {
-    if (lessonType === 'video' && !videoUrl) {
+    if (lessonType === 'video' && !selectedVideo) {
       alert('Video URL is required for video lesson');
+      return;
+    }
+    if (!lessonTitle) {
+      alert('Lesson Title is required.');
       return;
     }
 
     const newLesson = {
       title: lessonTitle,
       type: lessonType,
-      content: lessonType === 'video' ? videoUrl : quizQuestions
+      content: lessonType === 'video' ? selectedVideo : quizQuestions
     };
-
     setLessons([...lessons, newLesson]);
     setLessonTitle('');
     setLessonType('video');
     setVideoUrl('');
+    clearFile();
     setQuizQuestions([]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    const formData = new FormData();
+    formData.append("CourseTitle", courseFormState.courseTitle);
+    formData.append("CategoryId", courseFormState.categoryId);
+    formData.append("Description", courseFormState.description);
+    formData.append("Price", courseFormState.price);
+    formData.append("TeacherId", userId);
+    if (courseFormState.selectedFile) {
+      formData.append("Image", courseFormState.selectedFile);
+    }
+    console.log(lessons);
+    lessons.forEach((ls, lsIndex) => {
+      formData.append(`ExamTests[${lsIndex}].TestName`, ls.title);
+      if (ls.type === 'video' && ls.content) {
+        formData.append(`ExamTests[${lsIndex}].Video`, ls.content);
+      }
+      else if (ls.type === 'quiz' && ls.content.length) {
+        ls.content.forEach((qz, qzIndex) => {
+          formData.append(`ExamTests[${lsIndex}].Quizzes[${qzIndex}].QuizName`, "");
+          formData.append(`ExamTests[${lsIndex}].Quizzes[${qzIndex}].QuizQuestion`, qz.text);
+
+          if (qz.answers.length) {
+            qz.answers.forEach((ans, ansIndex) => {
+              formData.append(`ExamTests[${lsIndex}].Quizzes[${qzIndex}].Answers[${ansIndex}].Answer`, ans.text);
+              formData.append(`ExamTests[${lsIndex}].Quizzes[${qzIndex}].Answers[${ansIndex}].IsCorrect`, ans.isCorrect);
+            });
+          }
+
+        });
+      }
+    });
 
     try {
       // Giả lập API call
+      const response = await axios.post("https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Course/full",
+      // const response = await axios.post("http://localhost:5065/api/Course/full",
+        formData,
+        {
+          headers: {"Content-Type": "multipart/form-data"}
+        }
+      );
+      console.log(response.data);
       setTimeout(() => {
         setIsSubmitting(false);
         Swal.fire({
@@ -98,11 +170,12 @@ const CourseCreate = () => {
           allowOutsideClick: false,
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = "/"; 
+            window.location.href = "/";
           }
         });
-      }, 2000); 
+      }, 2000);
     } catch (error) {
+      console.log(error);
       setIsSubmitting(false);
       Swal.fire({
         title: 'Error!',
@@ -121,7 +194,7 @@ const CourseCreate = () => {
           <CourseHeader />
           <div className="card-body">
             <form onSubmit={handleSubmit}>
-              <CourseForm />
+              <CourseForm {...courseFormState} />
 
               {/* Nhập thông tin bài học */}
               <div className="lesson-form-container">
@@ -155,13 +228,21 @@ const CourseCreate = () => {
                   <div className="form-group">
                     <label htmlFor="videoUrl" className="form-label">Video URL</label>
                     <input
+                      type="file"
+                      className="file-upload form-control"
+                      id="videoUrl"
+                      ref={fileInputRef}
+                      accept='video/mp4'
+                      onChange={(e) => setSelectedVideo(e.target.files[0])}
+                    />
+                    {/* <input
                       type="text"
                       className="form-control"
                       id="videoUrl"
                       value={videoUrl}
                       onChange={(e) => setVideoUrl(e.target.value)}
                       placeholder="Enter video URL"
-                    />
+                    /> */}
                   </div>
                 )}
 
