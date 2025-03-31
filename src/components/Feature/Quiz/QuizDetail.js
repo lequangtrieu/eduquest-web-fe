@@ -1,120 +1,147 @@
 import { useParams } from "react-router-dom";
 import PageLayout from "../../Common/Page/PageLayout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SweetAlert from "sweetalert";
 import axios from "axios";
 
-const questions = [
-  {
-    id: 1,
-    questionText: "React là gì?",
-    options: [
-      "Ngôn ngữ lập trình",
-      "Thư viện JavaScript để xây dựng giao diện người dùng",
-      "Framework backend",
-      "Công cụ quản lý state",
-    ],
-    correctAnswer: 1,
-  },
-  {
-    id: 2,
-    questionText: "Bootstrap được sử dụng để làm gì?",
-    options: [
-      "Kết nối CSDL",
-      "Xử lý logic nghiệp vụ",
-      "Tạo giao diện responsive",
-      "Tối ưu SEO",
-    ],
-    correctAnswer: 2,
-  },
-  {
-    id: 3,
-    questionText: "Node.js là gì?",
-    options: [
-      "Môi trường chạy JavaScript phía server",
-      "Thư viện của React",
-      "Trình biên dịch Java",
-      "Công cụ tạo API tự động",
-    ],
-    correctAnswer: 0,
-  },
-  {
-    id: 4,
-    questionText: "JavaScript được sử dụng chủ yếu để làm gì?",
-    options: [
-      "Viết mã backend",
-      "Lập trình hệ thống nhúng",
-      "Phát triển ứng dụng mobile",
-      "Lập trình phía client ",
-    ],
-    correctAnswer: 3,
-  },
-  {
-    id: 5,
-    questionText: "Trong React, state là gì?",
-    options: [
-      "Phương thức để thay đổi props",
-      "Một loại biến toàn cục",
-      "Cấu trúc dữ liệu trong Redux",
-      "Một đối tượng chứa dữ liệu động của component ",
-    ],
-    correctAnswer: 3,
-  },
-  {
-    id: 6,
-    questionText: "CSS Grid được sử dụng để?",
-    options: [
-      "Quản lý database",
-      "Thay thế JavaScript",
-      "Xử lý backend",
-      "Tạo bố cục trang web linh hoạt ",
-    ],
-    correctAnswer: 3,
-  },
-  {
-    id: 7,
-    questionText: "Thành phần nào của HTTP giúp định danh loại nội dung trả về?",
-    options: ["Header", "Body", "Status Code", "Method"],
-    correctAnswer: 0,
-  },
-  {
-    id: 8,
-    questionText: "Cấu trúc dữ liệu nào được sử dụng trong Redux?",
-    options: [
-      "Stack",
-      "Queue",
-      "Store",
-      "Graph",
-    ],
-    correctAnswer: 2,
-  },
-  {
-    id: 9,
-    questionText: "Câu lệnh nào dùng để tạo component trong React?",
-    options: [
-      "new Component()",
-      "createComponent()",
-      "function Component() {} ",
-      "class Component()",
-    ],
-    correctAnswer: 2,
-  },
-  {
-    id: 10,
-    questionText: "API RESTful sử dụng phương thức HTTP nào để cập nhật dữ liệu?",
-    options: ["PUT", "GET", "POST", "DELETE"],
-    correctAnswer: 0,
-  },
-];
+// const questions = [
+  // {
+  //   id: 1,
+  //   questionText: "React là gì?",
+  //   options: [
+  //     "Ngôn ngữ lập trình",
+  //     "Thư viện JavaScript để xây dựng giao diện người dùng",
+  //     "Framework backend",
+  //     "Công cụ quản lý state",
+  //   ],
+  //   correctAnswer: 1,
+  // },
+  // {
+  //   id: 2,
+  //   questionText: "Bootstrap được sử dụng để làm gì?",
+  //   options: [
+  //     "Kết nối CSDL",
+  //     "Xử lý logic nghiệp vụ",
+  //     "Tạo giao diện responsive",
+  //     "Tối ưu SEO",
+  //   ],
+  //   correctAnswer: 2,
+  // },
+//   {
+//     id: 3,
+//     questionText: "Node.js là gì?",
+//     options: [
+//       "Môi trường chạy JavaScript phía server",
+//       "Thư viện của React",
+//       "Trình biên dịch Java",
+//       "Công cụ tạo API tự động",
+//     ],
+//     correctAnswer: 0,
+//   },
+//   {
+//     id: 4,
+//     questionText: "JavaScript được sử dụng chủ yếu để làm gì?",
+//     options: [
+//       "Viết mã backend",
+//       "Lập trình hệ thống nhúng",
+//       "Phát triển ứng dụng mobile",
+//       "Lập trình phía client ",
+//     ],
+//     correctAnswer: 3,
+//   },
+//   {
+//     id: 5,
+//     questionText: "Trong React, state là gì?",
+//     options: [
+//       "Phương thức để thay đổi props",
+//       "Một loại biến toàn cục",
+//       "Cấu trúc dữ liệu trong Redux",
+//       "Một đối tượng chứa dữ liệu động của component ",
+//     ],
+//     correctAnswer: 3,
+//   },
+//   {
+//     id: 6,
+//     questionText: "CSS Grid được sử dụng để?",
+//     options: [
+//       "Quản lý database",
+//       "Thay thế JavaScript",
+//       "Xử lý backend",
+//       "Tạo bố cục trang web linh hoạt ",
+//     ],
+//     correctAnswer: 3,
+//   },
+//   {
+//     id: 7,
+//     questionText: "Thành phần nào của HTTP giúp định danh loại nội dung trả về?",
+//     options: ["Header", "Body", "Status Code", "Method"],
+//     correctAnswer: 0,
+//   },
+//   {
+//     id: 8,
+//     questionText: "Cấu trúc dữ liệu nào được sử dụng trong Redux?",
+//     options: [
+//       "Stack",
+//       "Queue",
+//       "Store",
+//       "Graph",
+//     ],
+//     correctAnswer: 2,
+//   },
+//   {
+//     id: 9,
+//     questionText: "Câu lệnh nào dùng để tạo component trong React?",
+//     options: [
+//       "new Component()",
+//       "createComponent()",
+//       "function Component() {} ",
+//       "class Component()",
+//     ],
+//     correctAnswer: 2,
+//   },
+//   {
+//     id: 10,
+//     questionText: "API RESTful sử dụng phương thức HTTP nào để cập nhật dữ liệu?",
+//     options: ["PUT", "GET", "POST", "DELETE"],
+//     correctAnswer: 0,
+//   },
+// ];
 
 export default function QuizDetail() {
-  const { quizId } = useParams();
-
-  const [answers, setAnswers] = useState(Array(questions.length).fill(null));
+  const params = useParams();
+  const { testId } = params;
+  const [questions, setQuestions] = useState([]);
+  const [answers, setAnswers] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const [AIExplain, setAIExplain] = useState("");
+  
+  
+  useEffect(() => {
+    const fetchQuiz = async () => {
+      try {
+        const response = await axios.get(`https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Quiz/ExamTest/${testId}`);
+        // const response = await axios.get(`http://localhost:5065/api/Quiz/ExamTest/${testId}`);
+
+        const formatQuestions = response.data.map((q, index) => ({
+          id: index + 1,
+          questionText: q.quizQuestion,
+          options: q.answers.map(a => a.answer),
+          correctAnswer: q.answers.findIndex(a => a.isCorrect),
+        }));
+
+        setQuestions(formatQuestions);
+        setAnswers(Array(formatQuestions.length).fill(null));
+      } catch (error) {
+        console.error("Lỗi khi gọi API:", error);
+      }
+    };
+
+    if (testId) {
+      fetchQuiz();
+    }
+  }, [testId]);
 
   const handleOptionSelect = (index) => {
     const newAnswers = [...answers];
@@ -160,7 +187,7 @@ export default function QuizDetail() {
       setSubmitAttempted(true);
       return;
     }
-    sendMessage();
+    // sendMessage();
     setShowScore(true);
   };
 
@@ -226,72 +253,77 @@ export default function QuizDetail() {
           <div className="card-header">
             <h3 className="mb-0">Quiz Test</h3>
           </div>
-          <div className="card-body" style={{ height: "400px" }}>
-            {showScore ? (
-              <div className="text-center">
-                <h4>Bạn đã hoàn thành quiz!</h4>
-                <p>
-                  Điểm của bạn: {calculateScore()} / {questions.length}
-                </p>
-                <div>{AIExplain}</div>
-                <button className="btn btn-primary" onClick={handleRestart}>
-                  Làm lại quiz
-                </button>
-              </div>
-            ) : (
-              <>
-                <div className="mb-4">
-                  <h5 className={isCurrentUnanswered ? "text-danger" : ""}>
-                    Câu hỏi {currentQuestion + 1}/{questions.length}
-                  </h5>
-                  <p className={isCurrentUnanswered ? "text-danger" : ""}>
-                    {questions[currentQuestion].questionText}
+          {questions.length && questions[currentQuestion] ? (
+              <div className="card-body" style={{ height: "400px" }}>
+              {showScore ? (
+                <div className="text-center">
+                  <h4>Bạn đã hoàn thành quiz!</h4>
+                  <p>
+                    Điểm của bạn: {calculateScore()} / {questions.length}
                   </p>
-                </div>
-                <div
-                  className="list-group"
-                  style={{
-                    maxHeight: "200px",
-                    height: "200px",
-                    overflow: "auto",
-                  }}
-                >
-                  {questions[currentQuestion].options.map((option, index) => (
-                    <button
-                      key={index}
-                      className={`list-group-item list-group-item-action ${
-                        answers[currentQuestion] === index ? "active" : ""
-                      }`}
-                      onClick={() => handleOptionSelect(index)}
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-                <div className="mt-4 d-flex justify-content-between">
-                  <button
-                    className="btn btn-secondary"
-                    onClick={handlePrevious}
-                    disabled={currentQuestion === 0}
-                  >
-                    Câu trước
+                  <div>{AIExplain}</div>
+                  <button className="btn btn-primary" onClick={handleRestart}>
+                    Làm lại quiz
                   </button>
-                  <div>
-                    <button
-                      className="btn btn-success me-2"
-                      onClick={handleNext}
-                      disabled={currentQuestion === questions.length - 1}
-                    >
-                      Câu tiếp theo
-                    </button>
-                    <button className="btn btn-warning" onClick={handleSubmit}>
-                      Nộp bài
-                    </button>
-                  </div>
                 </div>
-              </>
+              ) : (
+                <>
+                  <div className="mb-4">
+                    <h5 className={isCurrentUnanswered ? "text-danger" : ""}>
+                      Câu hỏi {currentQuestion + 1}/{questions.length}
+                    </h5>
+                    <p className={isCurrentUnanswered ? "text-danger" : ""}>
+                      {questions[currentQuestion].questionText}
+                    </p>
+                  </div>
+                  <div
+                    className="list-group"
+                    style={{
+                      maxHeight: "200px",
+                      height: "200px",
+                      overflow: "auto",
+                    }}
+                  >
+                    {questions[currentQuestion].options.map((option, index) => (
+                      <button
+                        key={index}
+                        className={`list-group-item list-group-item-action ${
+                          answers[currentQuestion] === index ? "active" : ""
+                        }`}
+                        onClick={() => handleOptionSelect(index)}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="mt-4 d-flex justify-content-between">
+                    <button
+                      className="btn btn-secondary"
+                      onClick={handlePrevious}
+                      disabled={currentQuestion === 0}
+                    >
+                      Câu trước
+                    </button>
+                    <div>
+                      <button
+                        className="btn btn-success me-2"
+                        onClick={handleNext}
+                        disabled={currentQuestion === questions.length - 1}
+                      >
+                        Câu tiếp theo
+                      </button>
+                      <button className="btn btn-warning" onClick={handleSubmit}>
+                        Nộp bài
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+            ) : (
+              <p>Đang tải câu hỏi...</p>
             )}
-          </div>
+          
         </div>
       </div>
     </PageLayout>

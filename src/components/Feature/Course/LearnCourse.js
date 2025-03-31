@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PageLayout from "../../Common/Page/PageLayout";
 import { FaPlayCircle } from "react-icons/fa";
@@ -9,6 +9,7 @@ export default function LearnCourse() {
     const navigate = useNavigate();
     const { idCourse } = useParams();
     const [course, setCourse] = useState(null);
+    const [lessons, setLessons] = useState([]);
     const [videos, setVideos] = useState([]);
     const [currentVideo, setCurrentVideo] = useState(null);
     const [activeVideoId, setActiveVideoId] = useState(null);
@@ -16,10 +17,18 @@ export default function LearnCourse() {
     // Fetch dữ liệu khóa học & video
     const fetchCourseData = async () => {
         try {
-            const result = await axios.get(`https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Course/${idCourse}`);
+            const result = await axios.get(`https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Course/full/${idCourse}`);
+            // const result = await axios.get(`http://localhost:5065/api/Course/full/${idCourse}`);
             setCourse(result.data);
-
-            const mockVideos = [
+            setLessons(result.data.examTests);
+            const mockVideos = result.data.examTests.filter(i => i.isQuiz === false).map(item => {
+                return {
+                    id: item.examTestId,
+                    title: item.testName,
+                    url: item.videoURL
+                };
+            });
+            const mockVideos1 = [
                 { id: 1, title: "Introduction to AI", url: "https://www.youtube.com/embed/x0fSBAgBrOQ" },
                 { id: 2, title: "Machine Learning Basics", url: "https://www.youtube.com/embed/30sMCciFIAM" },
                 { id: 3, title: "Deep Learning Overview", url: "https://www.youtube.com/embed/9QeNLypIiZs" },
@@ -58,18 +67,42 @@ export default function LearnCourse() {
                             <div className="sidebar">
                                 <h4>Table of Contents</h4>
                                 <ul className="list-unstyled">
-                                    {videos.map((video) => (
+                                    {videos.length > 0 && 
+                                    lessons.map((lesson) => (
+                                        <React.Fragment key={lesson.examTestId}>
+                                        
+                                        {
+                                            !lesson.isQuiz && (
+                                                <li key={lesson.examTestId} className={`content-item ${activeVideoId === lesson.examTestId ? "active" : ""}`}>
+                                                    <button onClick={() => handleVideoSelect(videos.find(i => i.id === lesson.examTestId))}>
+                                                        <FaPlayCircle /> {videos.find(i => i.id === lesson.examTestId).title} 
+                                                        
+                                                    </button>
+                                                </li>
+                                            )
+                                        }
+                                        {
+                                            lesson.isQuiz && (
+                                                <button className="btn btn-quiz" onClick={() => navigate(`/quiz/${lesson.examTestId}`)}>
+                                                    {lesson.testName}
+                                                </button>
+                                            )
+                                        }
+                                    
+                                    </React.Fragment>
+                                ))}
+                                    {/* {videos.map((video) => (
                                         <li key={video.id} className={`content-item ${activeVideoId === video.id ? "active" : ""}`}>
                                             <button onClick={() => handleVideoSelect(video)}>
                                                 <FaPlayCircle /> {video.title}
                                             </button>
                                         </li>
-                                    ))}
+                                    ))} */}
                                 </ul>
 
-                                <button className="btn btn-quiz" onClick={() => navigate(`/quiz/${idCourse}`)}>
+                                {/* <button className="btn btn-quiz" onClick={() => navigate(`/quiz/${idCourse}`)}>
                                     Take Quiz
-                                </button>
+                                </button> */}
                             </div>
                         </div>
 
