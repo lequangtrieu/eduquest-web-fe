@@ -12,6 +12,7 @@ export default function TeacherList() {
 
   const fetchTeachers = async () => {
     try {
+      // const result = await axios.get("https://localhost:7091/api/teachers/all");
       const result = await axios.get("https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/teachers/all");
       setTeachers(result.data);
     } catch (error) {
@@ -21,10 +22,14 @@ export default function TeacherList() {
   };
 
   const handleToggleBanTeacher = async (teacherId, teacherName, isBanned) => {
-    const action = isBanned ? "Unban" : "Ban";
+    const action = isBanned ? "unban" : "ban";
     const apiUrl = `https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/teachers/${
       isBanned ? "unban" : "ban"
     }/${teacherId}`;
+
+    // const apiUrl = `"https://localhost:7091/api/teachers/${
+    //   isBanned ? "unban" : "ban"
+    // }/${teacherId}`;
 
     Swal.fire({
       title: `Do you want to ${action.toLowerCase()} the account of ${teacherName}?`,
@@ -88,6 +93,7 @@ export default function TeacherList() {
               >
                 <thead className="thead-dark">
                   <tr>
+                    <th>Avatar</th> {/* Cột ảnh */}
                     <th>Account</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -97,36 +103,41 @@ export default function TeacherList() {
                   {teachers.length > 0 ? (
                     teachers.map((teacher, index) => (
                       <tr key={index}>
+                        {/* Cột ảnh */}
                         <td>
                           <img
-                            style={{ marginRight: "6px" }}
+                            style={{
+                              marginRight: "6px",
+                              objectFit: "cover",  // Đảm bảo ảnh luôn đầy đủ mà không bị méo
+                              borderRadius: "50%"  // Để tạo ảnh tròn
+                            }}
                             width="40"
                             height="40"
-                            alt=""
+                            alt={teacher.email || "Teacher Avatar"}
                             src={
-                              teacher.avatar
+                              teacher.avatar && teacher.avatar !== ""
                                 ? teacher.avatar
-                                : "../../img/client-Avatar/clientAvatar-1.jpg"
+                                : "../../img/client-Avatar/clientAvatar-1.jpg" // Đảm bảo ảnh mặc định có thể truy cập
                             }
                             className="avatar-img"
                           />
-                          {teacher.email || "N/A"}
                         </td>
+
+                        {/* Cột email */}
+                        <td>{teacher.email || "N/A"}</td>
+
+                        {/* Cột trạng thái */}
                         <td style={{ color: teacher.isBan ? "red" : "" }}>
-                          {teacher.isBan ? "Ban" : "Normal" || "N/A"}
+                          {teacher.isBan ? "Banned" : "Normal"}
                         </td>
+
+                        {/* Cột hành động */}
                         <td>
                           <button
-                            className={`btn btn-sm ${
-                              teacher.isBan ? "btn-success" : "btn-danger"
-                            }`}
                             style={{ width: "120px" }}
+                            className={`btn btn-sm ${teacher.isBan ? "btn-success" : "btn-danger"}`}
                             onClick={() =>
-                              handleToggleBanTeacher(
-                                teacher.id,
-                                teacher.email,
-                                teacher.isBan
-                              )
+                              handleToggleBanTeacher(teacher.id, teacher.email, teacher.isBan)
                             }
                           >
                             {teacher.isBan ? "Unban" : "Ban"} Account
@@ -136,7 +147,7 @@ export default function TeacherList() {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="6" className="text-center text-muted">
+                      <td colSpan="4" className="text-center text-muted">
                         No data available
                       </td>
                     </tr>
