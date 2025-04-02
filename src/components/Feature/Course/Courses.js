@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 export default function Courses() {
     const [courses, setCourses] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState("All");
     const [categories, setCategories] = useState(["All"]);
     const [priceFilter, setPriceFilter] = useState(""); // Thêm state để lọc theo giá
     const [currentPage, setCurrentPage] = useState(1);
