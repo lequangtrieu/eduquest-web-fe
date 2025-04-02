@@ -83,7 +83,7 @@ export default function LearnCourse() {
                                         }
                                         {
                                             lesson.isQuiz && (
-                                                <button className="btn btn-quiz" onClick={() => navigate(`/quiz/${lesson.examTestId}`)}>
+                                                <button className="btn btn-quiz content-item" onClick={() => navigate(`/quiz/${lesson.examTestId}`)}>
                                                     {lesson.testName}
                                                 </button>
                                             )
