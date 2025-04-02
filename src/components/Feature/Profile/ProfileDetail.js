@@ -10,11 +10,13 @@ import CertificateLayout from "../Certificate/CertificateLayout";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { FaCamera } from "react-icons/fa";
 import withReactContent from "sweetalert2-react-content";
+import axios from "axios";
 
 const ProfileDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
+  const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("courses"); // Tab mặc định
   const [role, setRole] = useState("");
@@ -34,6 +36,38 @@ const ProfileDetail = () => {
     const file = event.target.files[0];
     if (!file) return;
     uploadFile(file);
+  };
+
+  const fetchCourses = async () => {
+    try {
+      // const response = await axios.get(`http://localhost:5065/api/Courses?$filter=teacherId eq '${id}'`);
+      const response = await axios.get(`https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Courses?$filter=teacherId eq '${id}`);
+      setCourses(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleRemoveCourse = async (index) => {
+    Swal.fire({
+      title: "Are you sure you want to delete?",
+      text: "This course will be deleted permanently.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+      cancelButtonText: "Cancel",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Course/${index}`);
+          Swal.fire("Deleted!", "Course deleted successfully.", "success");
+          fetchCourses();
+        } catch (error) {
+          console.log(error);
+          Swal.fire("Error!", "An error occurred while deleting the course.", "error");
+        }
+      }
+    });
   };
 
   const uploadFile = (file) => {
@@ -131,6 +165,7 @@ const ProfileDetail = () => {
           ];
         }
         setProfile(data);
+        fetchCourses();
       } catch (error) {
         console.error("Error fetching profile:", error);
       } finally {
@@ -191,6 +226,42 @@ const ProfileDetail = () => {
             </button>
           )}
         </div>
+
+        {(role === "Teacher" && courses.length > 0) && (
+          <div className="profile-tabs">
+            <div className="courses-teacher table-container">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Course Image</th>
+                        <th>Course Title</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {courses.map((course, index) => (
+                        <tr key={index}>
+                          <td><img className="course-image" src={course.imageURL} alt={course.courseTitle}/></td>
+                          <td>
+                          {course.courseTitle}
+                          </td>
+                          <td>
+                            <div className="action-buttons">
+                              <button
+                                className="btn-remove"
+                                onClick={() => handleRemoveCourse(course.courseId)}
+                              >
+                                <i className="fas fa-trash"></i> Remove
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+          </div>
+        )}
 
         {/* Nếu role là "student", hiển thị tabs */}
         {role === "Student" ||

@@ -78,10 +78,11 @@ const CourseCreate = () => {
       alert('Question text is required');
       return;
     }
-    if (!answers.some(i => i.isCorrect)) {
-      alert('There must be a correct answer.');
+    if (!answers.some(i => i.isCorrect) || answers.filter(a => a.isCorrect).length >= 2) {
+      alert('There must be 1 correct answer.');
       return;
     }
+
     const newQuestion = {
       text: questionText,
       answers: answers
@@ -118,6 +119,13 @@ const CourseCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if(!lessons.some(l => l.type === 'video')){
+      alert("There must be at least 1 video lesson!");
+      return;
+    }
+
+
     setIsSubmitting(true);
     const formData = new FormData();
     formData.append("CourseTitle", courseFormState.courseTitle);
@@ -128,7 +136,6 @@ const CourseCreate = () => {
     if (courseFormState.selectedFile) {
       formData.append("Image", courseFormState.selectedFile);
     }
-    console.log(lessons);
     lessons.forEach((ls, lsIndex) => {
       formData.append(`ExamTests[${lsIndex}].TestName`, ls.title);
       if (ls.type === 'video' && ls.content) {
@@ -159,7 +166,6 @@ const CourseCreate = () => {
           headers: {"Content-Type": "multipart/form-data"}
         }
       );
-      console.log(response.data);
       setTimeout(() => {
         setIsSubmitting(false);
         Swal.fire({
