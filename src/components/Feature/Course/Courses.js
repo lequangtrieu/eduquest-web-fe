@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../../public/assets/css/courses.css";
@@ -25,12 +25,17 @@ export default function Courses() {
     }, []);
     
     useEffect(() => {
+    
         const delaySearch = setTimeout(() => {
-          handleSearch();
+            handleSearch();
         }, 500);
     
         return () => clearTimeout(delaySearch);
-      }, [searchQuery]);
+    }, [searchQuery]);
+
+    useEffect(() => {
+        handleSearch();
+    }, [priceFilter, category]);
 
     const fetchCategories = async () => {
         try {
@@ -54,49 +59,44 @@ export default function Courses() {
         }
     };
 
-    const handleSearch = async () => {
-        if (searchQuery.length > 60) {
-            const trimmedKeyword = encodeURIComponent(searchQuery.substring(0, 60));
-            setSearchQuery(trimmedKeyword);
-            
-            Swal.fire(
-              "Error!",
-              "Your search input is too long, it has been trimmed to 99 characters.",
-              "error"
-            );
-            
-            fetchCourses();
-            return;
-          }
+    const handleSearch = useCallback(async () => {
+        let trimmedKeyword = searchQuery.trim();
     
-        if (!searchQuery.trim()) {
-          fetchCourses();
-          return;
+        if (trimmedKeyword.length > 60) {
+            trimmedKeyword = trimmedKeyword.substring(0, 60);
+            Swal.fire(
+                "Error!",
+                "Your search input is too long, it has been trimmed to 60 characters.",
+                "error"
+            );
         }
     
         try {
-          const result = await axios.get(
-            `https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Courses?$filter=(contains(tolower(courseTitle), '${encodeURIComponent(searchQuery)}') or contains(tolower(description), '${encodeURIComponent(searchQuery)}')) and status eq 1`
-            // `http://localhost:5065/api/Courses?$filter=(contains(tolower(courseTitle), '${encodeURIComponent(searchQuery)}') or contains(tolower(description), '${encodeURIComponent(searchQuery)}')) and status eq 1`
-          );
-          setCourses(result.data);
+            const filterQuery = `$filter=(contains(tolower(courseTitle), '${encodeURIComponent(trimmedKeyword)}') or contains(tolower(description), '${encodeURIComponent(trimmedKeyword)}')) and status eq 1
+            ${category !== "All" ? " and categoryName eq '" + category + "'" : ""}
+            ${priceFilter === "" ? "" : (priceFilter === "low" ? " and price le 20000" : (priceFilter === "medium" ? " and price gt 20000 and price le 50000" : " and price gt 50000"))}`;
+    
+            const result = await axios.get(`https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Courses?${filterQuery}`);
+            // const result = await axios.get(`http://localhost:5065/api/Courses?${filterQuery}`);
+            setCourses(result.data);
         } catch (error) {
-          console.error("Error searching courses:", error);
-          setCourses([]);
+            console.error("Error searching courses:", error);
+            setCourses([]);
         }
-      };
+    }, [searchQuery, priceFilter, category]);
 
-    const filteredCourses = courses
-        .filter((course) => (category !== "All" ? course.categoryName.toLowerCase() === category.toLowerCase() : true))
-        // .filter((course) => (category ? course.categoryId === parseInt(category) : true))
-        .filter((course) => {
-            if (priceFilter === "") return true;
-            const price = parseFloat(course.price);
-            if (priceFilter === "low") return price <= 20000;
-            if (priceFilter === "medium") return price > 20000 && price <= 50000;
-            if (priceFilter === "high") return price > 50000;
-            return true;
-        });
+    // const filteredCourses = courses
+        // .filter((course) => (category !== "All" ? course.categoryName.toLowerCase() === category.toLowerCase() : true))
+        // // .filter((course) => (category ? course.categoryId === parseInt(category) : true))
+        // .filter((course) => {
+        //     if (priceFilter === "") return true;
+        //     const price = parseFloat(course.price);
+        //     if (priceFilter === "low") return price <= 20000;
+        //     if (priceFilter === "medium") return price > 20000 && price <= 50000;
+        //     if (priceFilter === "high") return price > 50000;
+        //     return true;
+        // })
+        // ;
 
     return (
         <div>
@@ -139,8 +139,8 @@ export default function Courses() {
                     </div>
 
                     <div className="row">
-                        {filteredCourses.length > 0 ? (
-                            filteredCourses.map((course) => (
+                        {courses.length > 0 ? (
+                            courses.map((course) => (
                                 <div key={course.courseId}
                                     className="col-lg-4 col-md-6 d-flex align-items-stretch mb-4">
                                     <div className="course-item">
@@ -174,7 +174,7 @@ export default function Courses() {
                     </div>
 
                     <div className="pagination d-flex justify-content-center mt-4">
-                        {[...Array(Math.ceil(filteredCourses.length / coursesPerPage)).keys()].map((page) => (
+                        {[...Array(Math.ceil(courses.length / coursesPerPage)).keys()].map((page) => (
                             <button key={page + 1}
                                 className={`btn ${currentPage === page + 1 ? "btn-primary" : "btn-outline-primary"} mx-1`}
                                 onClick={() => setCurrentPage(page + 1)}>
