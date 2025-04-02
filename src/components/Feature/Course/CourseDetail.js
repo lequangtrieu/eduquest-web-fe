@@ -13,9 +13,9 @@ export default function CourseDetail() {
 
     const fetchCourseDetail = async () => {
         try {
-            const result = await axios.get(`https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Course/${idCourse}`);
-            // const result = await axios.get(`http://localhost:5065/api/Course/${idCourse}`);
-            setCourse(result.data);
+            const result = await axios.get(`https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Courses?$filter= courseId eq ${idCourse}`);
+            // const result = await axios.get(`http://localhost:5065/api/Courses?$filter= courseId eq ${idCourse}`);
+            setCourse(result.data[0]);
         } catch (error) {
             console.log(error);
         }
@@ -27,7 +27,6 @@ export default function CourseDetail() {
             const userId = localStorage.getItem("userId");
             if (userId) {
                 const response = await axios.get(`https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Payment/purchaseHistory?userId=${userId}`);
-                // const response = await axios.get(`http://localhost:5065/api/Payment/purchaseHistory?userId=${userId}`);
                 setPurchaseOrders(response.data);
             }
         } catch (error) {
@@ -43,8 +42,6 @@ export default function CourseDetail() {
                 "description": course.courseTitle.substring(0, 25),
                 "totalPrice": course.price,
                 "paymentMethod": "Online",
-                // "returnUrl": "https://localhost:3000/PaymentSuccess/",
-                // "cancelUrl": "https://localhost:3000/PaymentSuccess/"
                 "returnUrl": "https://eduquest-web-fe.vercel.app/PaymentSuccess/",
                 "cancelUrl": "https://eduquest-web-fe.vercel.app/PaymentSuccess/"
             };
@@ -53,7 +50,6 @@ export default function CourseDetail() {
 
             // Gửi request tới API để tạo payment link
             const response = await axios.post("https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Payment/payment-link", paymentData);
-            // const response = await axios.post("http://localhost:5065/api/Payment/payment-link", paymentData);
 
             console.log(response);
             if (response.data && response.data.paymentLink) {
@@ -94,8 +90,9 @@ export default function CourseDetail() {
                     <p>{course.description}</p>
 
                     <div className="course-meta">
+                        {console.log(course)}
                         <p><strong>Category:</strong> {course.categoryName}</p>
-                        <p><strong>Price:</strong> {course.price} VND</p>
+                        <p><strong>Price:</strong> {new Intl.NumberFormat("vi-VN").format(course.price)} VND</p>
                         <p><strong>Start Date:</strong> {new Date(course.createDate).toLocaleDateString()}</p>
                         <p><strong>Status:</strong> {course.status === 1 ? "Available" : "Not Available"}</p>
                     </div>
@@ -136,7 +133,7 @@ export default function CourseDetail() {
                         </button>
                     ) : (
                         <>
-                            <p className="price">{course.price} VND</p>
+                            <p className="price">{new Intl.NumberFormat("vi-VN").format(course.price)} VND</p>
                             <button className="btn btn-buy" onClick={handleBuyClick}>
                                 Buy Course
                             </button>

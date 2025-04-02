@@ -1,6 +1,23 @@
 /* main {
   background: #00453d url('../../../../public/img/clients/BackgroundProfile.png');
 } */
+.course-image{
+  object-fit: contain;
+  width: 130px;
+}
+
+.courses-teacher th:nth-child(1) {
+  width: 20%;
+}
+
+.courses-teacher th:nth-child(2) {
+  width: 70%;
+}
+
+.courses-teacher th:nth-child(3) {
+  width: 10%;
+}
+
 .btn-create-course {
   background-color: #28a745;
   color: white;
