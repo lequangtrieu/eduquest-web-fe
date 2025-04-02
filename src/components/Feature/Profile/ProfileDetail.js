@@ -41,7 +41,7 @@ const ProfileDetail = () => {
   const fetchCourses = async () => {
     try {
       // const response = await axios.get(`http://localhost:5065/api/Courses?$filter=teacherId eq '${id}'`);
-      const response = await axios.get(`https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Courses?$filter=teacherId eq '${id}`);
+      const response = await axios.get(`https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/Courses?$filter=teacherId eq '${id}'`);
       setCourses(response.data);
     } catch (error) {
       console.log(error);
