@@ -13,6 +13,7 @@ export default function StudentList() {
   const fetchStudents = async () => {
     try {
       const result = await axios.get("https://eduquest-web-bqcrf6dpejacgnga.southeastasia-01.azurewebsites.net/api/students/all");
+      // const result = await axios.get("https://localhost:7091/api/students/all");
       setStudents(result.data);
     } catch (error) {
       console.error("Error when fetching student data:", error);
@@ -26,9 +27,8 @@ export default function StudentList() {
 
     Swal.fire({
       title: `Do you want to ${actionText} ${studentName}'s account?`,
-      text: `Once ${actionText}ed, this account will ${
-        isBan ? "be able to log in again" : "not be able to log in"
-      }!`,
+      text: `Once ${actionText}ed, this account will ${isBan ? "be able to log in again" : "not be able to log in"
+        }!`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: isBan ? "#28a745" : "#d33",
@@ -43,8 +43,7 @@ export default function StudentList() {
           );
           Swal.fire(
             isBan ? "Unlocked!" : "Locked!",
-            `${studentName}'s account has been ${
-              isBan ? "unlocked" : "locked"
+            `${studentName}'s account has been ${isBan ? "unlocked" : "locked"
             }.`,
             "success"
           );
@@ -84,6 +83,7 @@ export default function StudentList() {
               >
                 <thead className="thead-dark">
                   <tr>
+                    <th>Avatar</th> {/* Cột ảnh */}
                     <th>Account</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -93,36 +93,41 @@ export default function StudentList() {
                   {students.length > 0 ? (
                     students.map((student, index) => (
                       <tr key={index}>
+                        {/* Cột ảnh */}
                         <td>
                           <img
-                            style={{ marginRight: "6px" }}
+                            style={{
+                              marginRight: "6px",
+                              objectFit: "cover",  // Đảm bảo ảnh luôn đầy đủ mà không bị méo
+                              borderRadius: "5%"  // Để tạo ảnh tròn
+                            }}
                             width="40"
                             height="40"
-                            alt=""
+                            alt={student.email || "Student Avatar"}
                             src={
-                              student.avatar
+                              student.avatar && student.avatar !== ""
                                 ? student.avatar
-                                : "../../img/client-Avatar/clientAvatar-1.jpg"
+                                : "../../img/client-Avatar/clientAvatar-1.jpg" // Đảm bảo ảnh mặc định có thể truy cập
                             }
                             className="avatar-img"
                           />
-                          {student.email || "N/A"}
                         </td>
+
+                        {/* Cột email */}
+                        <td>{student.email || "N/A"}</td>
+
+                        {/* Cột trạng thái */}
                         <td style={{ color: student.isBan ? "red" : "" }}>
                           {student.isBan ? "Banned" : "Normal"}
                         </td>
+
+                        {/* Cột hành động */}
                         <td>
                           <button
                             style={{ width: "120px" }}
-                            className={`btn btn-sm ${
-                              student.isBan ? "btn-success" : "btn-danger"
-                            }`}
+                            className={`btn btn-sm ${student.isBan ? "btn-success" : "btn-danger"}`}
                             onClick={() =>
-                              handleBanUnbanStudent(
-                                student.id,
-                                student.email,
-                                student.isBan
-                              )
+                              handleBanUnbanStudent(student.id, student.email, student.isBan)
                             }
                           >
                             {student.isBan ? "Unban" : "Ban"} Account
@@ -132,7 +137,7 @@ export default function StudentList() {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="3" className="text-center text-muted">
+                      <td colSpan="4" className="text-center text-muted">
                         No data available
                       </td>
                     </tr>

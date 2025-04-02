@@ -20,7 +20,7 @@ export function SidebarAdmin() {
             class="logo-img"
           />
           <div style={{ color: "white" }} class="mx-3">
-            SB Admin 
+            Admin 
           </div>
         </a>
 
@@ -97,19 +97,7 @@ export function SidebarAdmin() {
         </li>
 
         <hr class="sidebar-divider"></hr>
-
-        <li class="nav-item">
-          <Link class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span>
-          </Link>
-        </li>
-
         <hr class="sidebar-divider d-none d-md-block"></hr>
-
-        <div class="text-center d-none d-md-inline">
-          <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
       </ul>
     </>
   );
